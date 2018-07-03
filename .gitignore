@@ -6,7 +6,10 @@
 /out-tsc
 
 #configs
-/src/assets/**/*.json
+/src/assets/template.json
+/src/assets/data/wfi.json
+/src/assets/data/mcs.json
+/src/assets/data/*.json
 
 # dependencies
 /node_modules
