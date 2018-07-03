@@ -1,0 +1,13 @@
+<mat-form-field *ngIf="dataSource">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8">
+	<!-- Position Column -->
+	<ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.columnDef}} </th>
+		<td mat-cell *matCellDef="let row"> {{row[column.columnDef]}} </td>
+	</ng-container>
+	
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

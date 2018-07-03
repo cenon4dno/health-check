@@ -1,0 +1,12 @@
+.table-hc {
+	margin-top: 20px;
+}
+
+.mat-cell,
+.mat-header-cell {
+	padding-left: 20px;
+}
+
+.mat-row:hover {
+  background-color: #ededed;
+}
