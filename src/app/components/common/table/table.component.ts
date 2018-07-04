@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ngAfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource, MatSort, MatSortHeader } from '@angular/material';
