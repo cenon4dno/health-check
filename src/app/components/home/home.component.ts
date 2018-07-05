@@ -12,6 +12,7 @@ export class HomeComponent {
   public template;
   public data;
   public selectedApp;
+  public dataLocation;
   private templateUrl = 'assets/template.json';
   private dataUrl = 'assets/data/XXX.json';
 

@@ -1,18 +1,24 @@
 <div class="home container" *ngIf="hasProp(template, 'tabs')">
 	<h1>{{ title }}</h1>
-	<p>
-		Select Application: 
-		<mat-form-field>
-		  <mat-select [(ngModel)]="selectedApp" [(value)]="selected">
-			<mat-option>None</mat-option>
-			<mat-option *ngFor="let app of this.template.applications" 
-				(click)="getData(app)"
-				[value]="app">
-				{{app}}
-			</mat-option>
-		  </mat-select>
-		</mat-form-field>
-	</p>
+		<p>
+			<mat-form-field>
+				<input matInput placeholder="Location:" [(ngModel)]="dataLocation" value="C:\dump">
+			</mat-form-field>
+			<button mat-button>Submit</button>
+		</p>
+		<p *ngIf="dataLocation">
+			Select Application: 
+			<mat-form-field>
+			  <mat-select [(ngModel)]="selectedApp" [(value)]="selected">
+				<mat-option>None</mat-option>
+				<mat-option *ngFor="let app of this.template.applications" 
+					(click)="getData(app)"
+					[value]="app">
+					{{app}}
+				</mat-option>
+			  </mat-select>
+		  </mat-form-field>
+		</p>
 	<ngb-tabset *ngIf="data">
 	<ngb-tab class="tab" *ngFor="let tab of template.tabs; let i = index;" title="{{tab.title}}">
 		<ng-template ngbTabContent>
