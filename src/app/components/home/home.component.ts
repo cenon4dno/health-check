@@ -13,27 +13,30 @@ export class HomeComponent {
   public data;
   public selectedApp;
   public dataLocation;
-  private templateUrl = 'assets/template.json';
-  private dataUrl = 'assets/data/XXX.json';
+  private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
+	private getContent = '/getHealthCheck/id/XXX';
+	private getContentTemplate = '/getTemplate/id/XXX';
 
 	constructor(private http: HttpClient) {
 		this.getTemplate();
 	}
 	
 	getTemplate() {
-		this.http.get(this.templateUrl)
+		let newUrl = this.getContentTemplate.replace(
+			'XXX', '0');
+		this.http.get(this.dataUrl + newUrl)
 			.subscribe((resp) => {
 				this.template = resp;
 			});
 	}
 	
-	getData(strAppName) {
-		if (strAppName) {
+	getData(strApp) {
+		if (strApp.id) {
 			this.data = null;
-			this.selectedApp = strAppName;
-			let newUrl = this.dataUrl.replace(
-				'XXX', strAppName.toLowerCase());
-			this.http.get(newUrl)
+			this.selectedApp = strApp.name;
+			let newUrl = this.getContent.replace(
+				'XXX', strApp.id);
+			this.http.get(this.dataUrl + newUrl)
 				.subscribe((resp) => {
 					this.data = resp;
 				});

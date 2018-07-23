@@ -33,6 +33,11 @@ export class TableComponent {
 	getValue(element, id) {
 		return eval("element." + id);
 	}
+
+	getSelected(selected) {
+		console.log(selected);
+		alert('Test:' + selected);
+	}
 	
 	ngAfterViewInit() {
 		this.dataSource.sort = this.sort;
