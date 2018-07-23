@@ -44,11 +44,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { TableComponent } from './components/common/table/table.component';
+import { DialogComponent } from './components/common/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
 	TableComponent,
+	DialogComponent
   ],
   imports: [
     BrowserModule,
