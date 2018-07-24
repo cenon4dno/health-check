@@ -1,7 +1,15 @@
 {
+	"id": "1",
+	"name": "template",
 	"applications": [
-		"wfi",
-		"mcs"
+		{
+			"name": "WFI",
+			"id": 1
+		},
+		{
+			"name": "MCS",
+			"id": 2
+		}
 	],
 	"tabs": [
 		{
