@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+export interface EntryInterface {
+	id: String;
+	name: String;
+	contents: String[];
+}
+
+
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -13,7 +20,7 @@ export class HomeComponent {
   public data;
   public selectedApp;
   public dataLocation;
-  public contents;
+  public contents: Array<any>;
   private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
 	private getContent = '/getHealthCheck/id/XXX';
 	private getContentTemplate = '/getTemplate/id/XXX';
@@ -40,10 +47,11 @@ export class HomeComponent {
 			let newUrl = this.getContent.replace(
 				'XXX', strApp.id);
 			this.http.get(this.dataUrl + newUrl)
-				.subscribe((resp) => {
+				.subscribe((resp:EntryInterface) => {
 					this.data = resp;
-					this.contents = resp.contents;
-					console.log(this.contents);
+					if (resp.hasOwnProperty('contents')) {
+						this.contents = resp.contents;
+					};
 				});
 		}
 		

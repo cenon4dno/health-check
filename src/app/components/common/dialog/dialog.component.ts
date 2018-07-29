@@ -2,6 +2,12 @@ import { Component, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+export interface ConfigInterface {
+	app: any;
+	tab: String;
+	row: String;
+}
+
 @Component({
     templateUrl: 'dialog.component.html',
     styleUrls: ['./dialog.component.css']
@@ -42,7 +48,7 @@ export class DialogComponent {
         console.log(this.data);
         console.log(this.data.selected);
         let selected = this.data.selected;
-        let config = {};
+        let config: ConfigInterface;
         this.exception.forEach(function(element) {
             config[element] = selected[element];
             delete selected[element];
