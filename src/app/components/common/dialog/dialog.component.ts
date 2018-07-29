@@ -48,8 +48,10 @@ export class DialogComponent {
         console.log(this.data);
         console.log(this.data.selected);
         let selected = this.data.selected;
-        let config: ConfigInterface;
+        let config = {app: "", row: "", tab: ""};
         this.exception.forEach(function(element) {
+            console.log(config);
+            console.log(element);
             config[element] = selected[element];
             delete selected[element];
         });
