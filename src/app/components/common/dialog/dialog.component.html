@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Row Entry</h1>
+<mat-dialog-content>
+    <div class="fieldContainer" 
+      *ngFor="let field of values; let i = index">
+        <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldTitle">{{keys[i].toUpperCase()}}:</span>&nbsp;&nbsp;
+        <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldValue">
+          <input matInput [(ngModel)]="qtd[i]" [disabled]="disabled.indexOf(keys[i]) >= 0" />
+        </span>
+   </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button mat-button (click)="onDeleteClick()">Delete</button>
+    <button mat-button (click)="onSaveClick()">Update</button>
+</mat-dialog-actions>

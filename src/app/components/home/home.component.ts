@@ -13,9 +13,11 @@ export class HomeComponent {
   public data;
   public selectedApp;
   public dataLocation;
+  public contents;
   private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
 	private getContent = '/getHealthCheck/id/XXX';
 	private getContentTemplate = '/getTemplate/id/XXX';
+	public appId = 0;
 
 	constructor(private http: HttpClient) {
 		this.getTemplate();
@@ -33,12 +35,15 @@ export class HomeComponent {
 	getData(strApp) {
 		if (strApp.id) {
 			this.data = null;
+			this.appId = strApp.id;
 			this.selectedApp = strApp.name;
 			let newUrl = this.getContent.replace(
 				'XXX', strApp.id);
 			this.http.get(this.dataUrl + newUrl)
 				.subscribe((resp) => {
 					this.data = resp;
+					this.contents = resp.contents;
+					console.log(this.contents);
 				});
 		}
 		

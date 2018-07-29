@@ -1,0 +1,16 @@
+dialog {
+    display: block !important;
+    border: 0;
+}
+
+ .fieldContainer {
+ }
+
+ .fieldValue, .fieldTitle {
+     display: inline-block;
+     width: auto;
+ }
+
+ input {
+     border: 1px solid black;
+ }

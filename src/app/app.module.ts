@@ -64,9 +64,11 @@ import { DialogComponent } from './components/common/dialog/dialog.component';
 	MatSortModule,
 	MatSelectModule,
 	BrowserAnimationsModule,
-	FormsModule
+	FormsModule,
+	MatDialogModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [HomeComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

@@ -1,11 +1,5 @@
 <div class="home container" *ngIf="hasProp(template, 'tabs')">
 	<h1>{{ title }}</h1>
-		<!-- <p>
-			<mat-form-field>
-				<input matInput placeholder="Location:" [(ngModel)]="dataLocation" value="C:\dump">
-			</mat-form-field>
-			<button mat-button>Submit</button>
-		</p> -->
 		<p>
 			Select Application: 
 			<mat-form-field>
@@ -24,6 +18,8 @@
 		<ng-template ngbTabContent>
 			<table-hc *ngIf="getTableConfig(tab.id) && getTableContent(tab.id)"
 				[config]="getTableConfig(tab.id)"
+				[tab]="i"
+				[app]="appId"
 				[data]="getTableContent(tab.id)"></table-hc>
 		</ng-template>
 	  </ngb-tab>
