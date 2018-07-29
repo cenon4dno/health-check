@@ -4,7 +4,7 @@
       *ngFor="let field of values; let i = index">
         <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldTitle">{{keys[i].toUpperCase()}}:</span>&nbsp;&nbsp;
         <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldValue">
-          <input matInput [(ngModel)]="qtd[i]" [disabled]="disabled.indexOf(keys[i]) >= 0" />
+          <input matInput [(ngModel)]="qtd[keys[i]]" [disabled]="disabled.indexOf(keys[i]) >= 0" />
         </span>
    </div>
 </mat-dialog-content>

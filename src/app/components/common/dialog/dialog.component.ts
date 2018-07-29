@@ -1,6 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HomeComponent } from './../../home/home.component';
 
 export interface ConfigInterface {
 	app: any;
@@ -32,8 +33,7 @@ export class DialogComponent {
           for (let prop of this.keys) {
             this.values.push(this.data.selected[prop]);
           }
-          this.qtd = Object.assign([], this.values);
-          console.log(this.values);
+          this.qtd = this.data.selected;
       }
 
     onCancelClick(): void {
@@ -41,37 +41,52 @@ export class DialogComponent {
     }
 
     onDeleteClick(): void {
-        this.dialogRef.close();
-      }
-
-    onSaveClick(): void {
-        console.log(this.data);
-        console.log(this.data.selected);
-        let selected = this.data.selected;
+        let selected = this.qtd;
         let config = {app: "", row: "", tab: ""};
         this.exception.forEach(function(element) {
-            console.log(config);
-            console.log(element);
+            config[element] = selected[element];
+        });
+
+        this.data.entries.splice(config.row, 1);
+
+        let newUrl = this.updateContent.replace('XXX', config.app);
+
+        var newData = {
+            id: '' + config.app,
+            expression: "set contents[" + config.tab + "].entries=:r",
+            expressionVal: {":r": this.data.entries},
+        };
+
+        this.http.post(this.dataUrl + newUrl, newData)
+		 	.subscribe((resp) => {
+                 //LAUNCH EMITTER
+		});
+        this.dialogRef.close();
+    }
+
+    onSaveClick(): void {
+        let selected = this.qtd;
+        let config = {app: "", row: "", tab: ""};
+        this.exception.forEach(function(element) {
+            console.log(selected);
             config[element] = selected[element];
             delete selected[element];
         });
         console.log(selected);
-        console.log(config);
         delete this.data.selected;
-        console.log(this.data);
 
         let newUrl = this.updateContent.replace('XXX', config.app);
 
-        // 
         var newData = {
-            id: config.app,
-            expression: "set contents[" + config.tab + "].entries[" + config.row + "] = :r",
+            id: '' + config.app,
+            expression: "set contents[" + config.tab + "].entries[" + config.row + "]=:r",
+            expressionVal: {":r": selected},
             val: selected
         };
 
         console.log(JSON.stringify(newData));
 
-         this.http.post(this.dataUrl + newUrl, this.newData)
+         this.http.post(this.dataUrl + newUrl, newData)
 		 	.subscribe((resp) => {
 		 		console.log(resp);
 		 	});
