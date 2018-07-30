@@ -76,7 +76,6 @@ export class HomeComponent {
 	
 	getTableContent(id) {
 		if (this.data && this.data.hasOwnProperty('contents')) {
-			
 			 var contents = this.data.contents.find(x => x.id == id);
 			 return contents;
 			 

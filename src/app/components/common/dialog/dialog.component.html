@@ -10,6 +10,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="onCancelClick()">Cancel</button>
-    <button mat-button (click)="onDeleteClick()">Delete</button>
-    <button mat-button (click)="onSaveClick()">Update</button>
+    <button mat-button *ngIf="qtd.dialogType != 'insert'" (click)="onDeleteClick()">Delete</button>
+    <button mat-button *ngIf="qtd.dialogType != 'insert'" (click)="onSaveClick()">Update</button>
+    <button mat-button *ngIf="qtd.dialogType == 'insert'" (click)="onInsertClick()">Insert</button>
 </mat-dialog-actions>

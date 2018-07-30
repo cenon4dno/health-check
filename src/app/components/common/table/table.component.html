@@ -1,6 +1,7 @@
 <mat-form-field *ngIf="dataSource">
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field>
+</mat-form-field><br />
+<a (click)="insertRow()">+ add Item</a> <br />
 <table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8">
 	<!-- Position Column -->
 	<ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">

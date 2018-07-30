@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DialogComponent } from './../dialog/dialog.component';
 
@@ -36,19 +35,30 @@ export class TableComponent {
 		this.dataSource.filter = filterValue;
 	}
 	
-	getValue(element, id) {
-		return eval("element." + id);
-	}
-
 	getSelected(selected, ind) {
-		console.log(this.contents);
-		console.log(this.data);
-		console.log(this.tab);
-		console.log(this.app);
 		selected = Object.assign(selected, {
 			app: this.app,
 			tab: this.tab,
 			row: ind
+		});
+		const dialogRef = this.dialog.open(DialogComponent, {
+			width: '450px',
+			height: '450px',
+			data: Object.assign(this.data, {selected: selected})
+		  });
+	  
+		  dialogRef.afterClosed().subscribe(result => {
+			console.log('The dialog was closed');
+		  });
+	}
+
+	insertRow() {
+		console.log(this.data);
+		const selected = Object.assign(this.data.template, {
+			app: this.app,
+			tab: this.tab,
+			dialogType: 'insert',
+			count: this.data.entries.length + 1
 		});
 		const dialogRef = this.dialog.open(DialogComponent, {
 			width: '450px',

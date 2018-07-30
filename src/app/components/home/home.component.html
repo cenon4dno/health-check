@@ -13,7 +13,7 @@
 			  </mat-select>
 		  </mat-form-field>
 		</p>
-	<ngb-tabset *ngIf="data">
+	<ngb-tabset *ngIf="data">	
 	<ngb-tab class="tab" *ngFor="let tab of template.tabs; let i = index;" title="{{tab.title}}">
 		<ng-template ngbTabContent>
 			<table-hc *ngIf="getTableConfig(tab.id) && getTableContent(tab.id)"
