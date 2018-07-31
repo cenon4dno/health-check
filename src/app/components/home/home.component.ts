@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface EntryInterface {
@@ -7,24 +7,26 @@ export interface EntryInterface {
 	contents: String[];
 }
 
-
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 
+@Injectable()
 export class HomeComponent {
-  public title = 'AXA Asia SSC - Health Check';
-  public template;
-  public data;
-  public selectedApp;
-  public dataLocation;
-  public contents: Array<any>;
-  private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
+	public title = 'AXA Asia SSC - Health Check';
+	public template;
+	public data;
+	public selectedApp;
+	public dataLocation;
+	public contents: Array<any>;
+	public appId = 0;
+	
+	private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
 	private getContent = '/getHealthCheck/id/XXX';
 	private getContentTemplate = '/getTemplate/id/XXX';
-	public appId = 0;
+	
 
 	constructor(private http: HttpClient) {
 		this.getTemplate();
@@ -39,11 +41,16 @@ export class HomeComponent {
 			});
 	}
 	
+	updateEntries(entries: String[]) {
+		this.data = null;
+		this.getData({id:1});
+	}
+
 	getData(strApp) {
 		if (strApp.id) {
 			this.data = null;
 			this.appId = strApp.id;
-			this.selectedApp = strApp.name;
+			//this.selectedApp = strApp.name;
 			let newUrl = this.getContent.replace(
 				'XXX', strApp.id);
 			this.http.get(this.dataUrl + newUrl)
@@ -51,6 +58,7 @@ export class HomeComponent {
 					this.data = resp;
 					if (resp.hasOwnProperty('contents')) {
 						this.contents = resp.contents;
+						
 					};
 				});
 		}
@@ -76,6 +84,7 @@ export class HomeComponent {
 	
 	getTableContent(id) {
 		if (this.data && this.data.hasOwnProperty('contents')) {
+			
 			 var contents = this.data.contents.find(x => x.id == id);
 			 return contents;
 			 

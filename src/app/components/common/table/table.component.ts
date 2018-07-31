@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DialogComponent } from './../dialog/dialog.component';
@@ -21,7 +21,8 @@ export class TableComponent {
 	@Input() contents;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(public dialog: MatDialog) {}
+	constructor(public dialog: MatDialog, private cd: ChangeDetectorRef) {
+	}
 	
 	ngOnInit() {
 		this.columns = this.config.columns;
@@ -34,7 +35,7 @@ export class TableComponent {
 		filterValue = filterValue.toLowerCase();
 		this.dataSource.filter = filterValue;
 	}
-	
+
 	getSelected(selected, ind) {
 		selected = Object.assign(selected, {
 			app: this.app,
@@ -45,15 +46,15 @@ export class TableComponent {
 			width: '450px',
 			height: '450px',
 			data: Object.assign(this.data, {selected: selected})
-		  });
+	    });
 	  
-		  dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
-		  });
+		dialogRef.afterClosed().subscribe(result => {
+			this.ngOnInit();
+			this.cd.detectChanges();
+		});
 	}
-
+	
 	insertRow() {
-		console.log(this.data);
 		const selected = Object.assign(this.data.template, {
 			app: this.app,
 			tab: this.tab,
@@ -67,7 +68,8 @@ export class TableComponent {
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
+			this.ngOnInit();
+			this.cd.detectChanges();
 		  });
 	}
 	
