@@ -1,0 +1,10 @@
+<form class="settings-form" *ngIf="message">
+  <mat-form-field class="settings-full-width">
+    <textarea matInput name="message" [(ngModel)]="message" maxlength="1000" placeholder="Template">{{message}}</textarea>
+	<mat-hint align="start"><strong>Please make sure this is a valid JSON</strong> </mat-hint>
+  </mat-form-field><br /><br /><br />
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onUpdate()">Update</button>
+  </mat-dialog-actions>
+</form>

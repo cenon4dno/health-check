@@ -1,6 +1,9 @@
 <div class="home container" *ngIf="hasProp(template, 'tabs')">
 	<h1>{{ title }}</h1>
-		<p>
+		<p *ngIf="!bPass">
+			Password: <input type="password" matInput [(ngModel)]="password"  (blur)="onChangePass()"/> (draft)
+		</p>
+		<p *ngIf="bPass">
 			Select Application: 
 			<mat-form-field>
 			  <mat-select [(ngModel)]="selectedApp" [(value)]="selected">
@@ -16,10 +19,10 @@
 	<ngb-tabset *ngIf="data">
 	<ngb-tab class="tab" *ngFor="let tab of template.tabs; let i = index;" title="{{tab.title}}">
 		<ng-template ngbTabContent>
-			<table-hc *ngIf="getTableConfig(tab.id) && getTableContent(tab.id)"
-				[config]="getTableConfig(tab.id)"
+			<table-hc *ngIf="show"
 				[tab]="i"
 				[app]="appId"
+				(homeRefresh)="refresh()"
 				[data]="getTableContent(tab.id)"></table-hc>
 		</ng-template>
 	  </ngb-tab>

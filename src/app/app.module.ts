@@ -45,12 +45,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { TableComponent } from './components/common/table/table.component';
 import { DialogComponent } from './components/common/dialog/dialog.component';
+import { SettingsComponent } from './components/common/settings/settings.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
 	TableComponent,
-	DialogComponent
+	DialogComponent,
+	SettingsComponent
   ],
   imports: [
     BrowserModule,

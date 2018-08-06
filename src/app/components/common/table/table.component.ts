@@ -1,7 +1,8 @@
-import { Component, Input, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DialogComponent } from './../dialog/dialog.component';
+import { SettingsComponent } from './../settings/settings.component';
 
 @Component({
   selector: 'table-hc',
@@ -13,19 +14,23 @@ import { DialogComponent } from './../dialog/dialog.component';
 export class TableComponent {
 	public dataSource;
 	public columns;
+	public strTemplate;
+	public bSettings = false;
 	public displayedColumns: string[];
-	@Input() config;
+
 	@Input() data;
 	@Input() tab;
 	@Input() app;
 	@Input() contents;
+	@Output() homeRefresh = new EventEmitter<boolean>();
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(public dialog: MatDialog, private cd: ChangeDetectorRef) {
+	constructor(public dialog: MatDialog,
+		private cd: ChangeDetectorRef) {
 	}
 	
 	ngOnInit() {
-		this.columns = this.config.columns;
+		this.columns = this.data.template;
 		this.displayedColumns = this.columns.map(x=>x.columnDef);
 		this.dataSource = new MatTableDataSource(this.data.entries);
 	}
@@ -75,5 +80,21 @@ export class TableComponent {
 	
 	ngAfterViewInit() {
 		this.dataSource.sort = this.sort;
+	}
+	
+	settings() {
+		this.strTemplate = JSON.stringify(this.data.template, undefined, 4);
+		this.bSettings = !this.bSettings;
+	}
+	
+	setSettings(setter: boolean) {
+		this.bSettings = setter;
+	}
+	
+	setSettingsUpdate(updated: boolean) {
+		console.log('updated', updated);
+		if (updated) {
+			this.homeRefresh.emit(false);
+		}
 	}
 }

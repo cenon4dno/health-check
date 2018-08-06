@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Row Entry</h1>
 <mat-dialog-content>
     <div class="fieldContainer" 
-      *ngFor="let field of values; let i = index">
-        <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldTitle">{{keys[i].toUpperCase()}}:</span>&nbsp;&nbsp;
+      *ngFor="let field of keys; let i = index">
+        <span *ngIf="exception.indexOf(keys[i][i]) < 0" class="fieldTitle">
+		{{keys[i].toUpperCase()}}:
+		</span>&nbsp;&nbsp;
         <span *ngIf="exception.indexOf(keys[i]) < 0" class="fieldValue">
           <input matInput [(ngModel)]="tempQtd[keys[i]]" [disabled]="disabled.indexOf(keys[i]) >= 0" />
         </span>

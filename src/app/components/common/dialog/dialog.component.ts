@@ -30,9 +30,14 @@ export class DialogComponent {
       public dialogRef: MatDialogRef<DialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
       private http: HttpClient) {
-          this.keys = Object.keys(this.data.selected);
+		  for (let key of this.data.template) {
+			  this.keys.push(key.columnDef);
+          }
+		  console.log(this.keys);
           for (let prop of this.keys) {
-            this.values.push(this.data.selected[prop]);
+			  if (this.data.selected[prop]) {
+				  this.values.push(this.data.selected[prop]);
+			  }
           }
           this.qtd = this.data.selected;
 		  this.tempQtd = Object.assign({}, this.qtd);

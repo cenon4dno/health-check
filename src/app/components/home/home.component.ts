@@ -1,5 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import CryptoJS from 'crypto-js';
 
 export interface EntryInterface {
 	id: String;
@@ -22,10 +23,15 @@ export class HomeComponent {
 	public dataLocation;
 	public contents: Array<any>;
 	public appId = 0;
+	public password;
+	public show = false;
+	public bPass = false;
 	
 	private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
 	private getContent = '/getHealthCheck/id/XXX';
 	private getContentTemplate = '/getTemplate/id/XXX';
+	private pass = 'U2FsdGVkX19IcYmA76hmFfJ0dKUW5tAAH5bxRifsEe0=';
+	public msg = "Secret Password";
 	
 
 	constructor(private http: HttpClient) {
@@ -46,23 +52,30 @@ export class HomeComponent {
 		this.getData({id:1});
 	}
 
-	getData(strApp) {
-		if (strApp.id) {
+	getData(objApp) {
+		if (objApp.id) {
 			this.data = null;
-			this.appId = strApp.id;
-			//this.selectedApp = strApp.name;
+			this.appId = objApp.id;
 			let newUrl = this.getContent.replace(
-				'XXX', strApp.id);
+				'XXX', objApp.id);
 			this.http.get(this.dataUrl + newUrl)
 				.subscribe((resp:EntryInterface) => {
 					this.data = resp;
+					console.log(resp);
 					if (resp.hasOwnProperty('contents')) {
 						this.contents = resp.contents;
-						
+						this.show = true;
 					};
 				});
 		}
 		
+	}
+	
+	refresh() {
+		this.show = false;
+		let objApp = {id: this.appId};
+		console.log('here', objApp);
+		this.getData(objApp);
 	}
 	
 	hasProp(o, name) {
@@ -71,15 +84,6 @@ export class HomeComponent {
 	  }
 	  
 	  return false;
-	}
-	
-	getTableConfig(id) {
-		if (this.template && this.template.hasOwnProperty('tablePerTab')) {
-			var configs = this.template.tablePerTab.find(x => x.id == id);
-			return configs;
-		}
-		
-		return false;
 	}
 	
 	getTableContent(id) {
@@ -91,5 +95,13 @@ export class HomeComponent {
 		}
 		
 		return false;
+	}
+	
+	onChangePass() {
+		console.log(this.password);
+		var encrypted = CryptoJS.AES.decrypt(this.pass, this.msg);
+		if (encrypted.toString(CryptoJS.enc.Utf8) == this.password) {
+			this.bPass = true;
+		}
 	}
 }

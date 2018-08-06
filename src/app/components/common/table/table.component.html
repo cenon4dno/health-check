@@ -1,8 +1,8 @@
-<mat-form-field *ngIf="dataSource">
+<mat-form-field *ngIf="dataSource && !bSettings">
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field><br />
-<a (click)="insertRow()">+ add Item</a><br />
-<table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8">
+<a *ngIf="!bSettings" class="link" (click)="insertRow()">Add Item</a><a *ngIf="!bSettings" class="right link" (click)="settings()">Settings</a><br />
+<table mat-table *ngIf="dataSource && !bSettings" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8">
 	<!-- Position Column -->
 	<ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.columnDef}} </th>
@@ -12,3 +12,10 @@
 	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 	<tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" (click)="getSelected(row, i)"></tr>
 </table>
+<settings 
+	*ngIf="bSettings"
+	[template]="strTemplate"
+	[appId]="app"
+	[tabId]="tab"
+	(enabler)="setSettings($event)"
+	(updater)="setSettingsUpdate($event)"></settings>

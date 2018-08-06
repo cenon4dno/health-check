@@ -10,3 +10,11 @@
 .mat-row:hover {
   background-color: #ededed;
 }
+
+.link {
+	cursor: pointer;
+}
+
+.right {
+	float: right;
+}
