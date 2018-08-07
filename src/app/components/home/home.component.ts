@@ -31,6 +31,7 @@ export class HomeComponent {
 	private getContent = '/getHealthCheck/id/XXX';
 	private getContentTemplate = '/getTemplate/id/XXX';
 	private pass = 'U2FsdGVkX19IcYmA76hmFfJ0dKUW5tAAH5bxRifsEe0=';
+	private apikey = 'JPHgN96DW55y2Ox5EovMj4qrA9pMLo6RaZhaP12R';
 	public msg = "Secret Password";
 	
 
@@ -56,9 +57,12 @@ export class HomeComponent {
 		if (objApp.id) {
 			this.data = null;
 			this.appId = objApp.id;
+			let setHeaders = {
+				'x-api-key': this.apikey
+			};
 			let newUrl = this.getContent.replace(
 				'XXX', objApp.id);
-			this.http.get(this.dataUrl + newUrl)
+			this.http.get(this.dataUrl + newUrl, { headers: setHeaders })
 				.subscribe((resp:EntryInterface) => {
 					this.data = resp;
 					console.log(resp);
