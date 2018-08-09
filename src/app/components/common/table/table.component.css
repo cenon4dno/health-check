@@ -1,5 +1,11 @@
 .table-hc {
-	margin-top: 20px;
+	margin-top: 20px;	
+}
+
+.block {
+	display: block;
+	overflow-x: scroll; 
+	width: auto;
 }
 
 .mat-cell,

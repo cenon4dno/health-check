@@ -16,11 +16,11 @@
 			  </mat-select>
 		  </mat-form-field>
 		</p>
-	<ngb-tabset *ngIf="data">
-	<ngb-tab class="tab" *ngFor="let tab of template.tabs; let i = index;" title="{{tab.title}}">
+	<ngb-tabset #t="ngbTabset" *ngIf="data" [activeId]="active">
+	<ngb-tab class="tab" *ngFor="let tab of template.tabs; let i = index;" title="{{tab.title}}" id="tab{{tab.id}}">
 		<ng-template ngbTabContent>
 			<table-hc *ngIf="show"
-				[tab]="i"
+				[tab]="getTableContentKey(tab.id)"
 				[app]="appId"
 				(homeRefresh)="refresh()"
 				[data]="getTableContent(tab.id)"></table-hc>

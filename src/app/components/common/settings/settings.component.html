@@ -1,6 +1,6 @@
 <form class="settings-form" *ngIf="message">
   <mat-form-field class="settings-full-width">
-    <textarea matInput name="message" [(ngModel)]="message" maxlength="1000" placeholder="Template">{{message}}</textarea>
+    <textarea matInput name="message" [(ngModel)]="message" placeholder="Template">{{message}}</textarea>
 	<mat-hint align="start"><strong>Please make sure this is a valid JSON</strong> </mat-hint>
   </mat-form-field><br /><br /><br />
   <mat-dialog-actions>

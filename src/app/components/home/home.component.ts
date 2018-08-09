@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import CryptoJS from 'crypto-js';
 
@@ -26,6 +26,7 @@ export class HomeComponent {
 	public password;
 	public show = false;
 	public bPass = false;
+	private active;
 	
 	private dataUrl = 'https://twyxn50h94.execute-api.ap-southeast-1.amazonaws.com/dev';
 	private getContent = '/getHealthCheck/id/XXX';
@@ -33,6 +34,8 @@ export class HomeComponent {
 	private pass = 'U2FsdGVkX19IcYmA76hmFfJ0dKUW5tAAH5bxRifsEe0=';
 	private apikey = 'JPHgN96DW55y2Ox5EovMj4qrA9pMLo6RaZhaP12R';
 	public msg = "Secret Password";
+
+	@ViewChild('t') t;
 	
 
 	constructor(private http: HttpClient) {
@@ -69,6 +72,10 @@ export class HomeComponent {
 					if (resp.hasOwnProperty('contents')) {
 						this.contents = resp.contents;
 						this.show = true;
+						if (this.t) {
+							this.t.select(this.active);
+						}
+						
 					};
 				});
 		}
@@ -78,7 +85,8 @@ export class HomeComponent {
 	refresh() {
 		this.show = false;
 		let objApp = {id: this.appId};
-		console.log('here', objApp);
+		this.active = this.t.activeId;
+		//console.log('here', active);
 		this.getData(objApp);
 	}
 	
@@ -94,6 +102,17 @@ export class HomeComponent {
 		if (this.data && this.data.hasOwnProperty('contents')) {
 			
 			 var contents = this.data.contents.find(x => x.id == id);
+			 return contents;
+			 
+		}
+		
+		return false;
+	}
+
+	getTableContentKey(id) {
+		if (this.data && this.data.hasOwnProperty('contents')) {
+			
+			 var contents = this.data.contents.findIndex(x => x.id == id);
 			 return contents;
 			 
 		}
