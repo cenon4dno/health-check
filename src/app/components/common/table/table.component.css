@@ -6,6 +6,12 @@
 	display: block;
 	overflow-x: scroll; 
 	width: auto;
+	overflow-y: scroll; 
+	height: 800px;
+}
+
+td {
+	vertical-align: top;
 }
 
 .mat-cell,

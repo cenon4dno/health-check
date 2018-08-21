@@ -2,7 +2,7 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field><br />
 <a *ngIf="!bSettings" class="link" (click)="insertRow()">Add Item</a><a *ngIf="!bSettings" class="right link" (click)="settings()">Settings</a><br />
-<table mat-table *ngIf="dataSource && !bSettings" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8" [ngClass]="{'block': columns.length > 10}">
+<table mat-table *ngIf="dataSource && !bSettings" [dataSource]="dataSource" matSort class="table-hc mat-elevation-z8" [ngClass]="{'block': columns.length > 7}">
 	<!-- Position Column -->
 	<ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.header}} </th>
